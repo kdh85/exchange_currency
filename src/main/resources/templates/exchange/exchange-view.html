@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>환율 계산</title>
+</head>
+<body>
+<div id="map" class="loadingImg">
+    <form method="post">
+        <h1>환율 계산</h1>
+        <div>
+            <label th:text="'송금국가: '+${remittanceNationInfo.getDisplayName()}"></label>
+        </div>
+        <div>
+            <label for="remittanceMonetary">수치국가 :
+                <select name="remittanceMonetary" id="remittanceMonetary">
+                    <option th:each="item : ${receiptNationInfo}"
+                            th:text="${item.getDisplayName()}"
+                            th:value="${item.getMonetaryUnit()}">
+                    </option>
+                    <input type="hidden" name="receiptMonetary" id="receiptMonetary"
+                           th:value="${remittanceNationInfo.getMonetaryUnit()}">
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>환율 : <span id="exchangeAmount"></span><span id="exchangeMonetaryUnit"></span></label>
+        </div>
+        <div>
+            <label>송금액 : <input type="number" name="transferAmount" id="transferAmount"></label>
+            <label th:text="${remittanceNationInfo.getMonetaryUnit()}"></label>
+        </div>
+        <button type="button" id="btn-save">Submit</button>
+        </br>
+        </br>
+        <div class="result"></div>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="/js/exchange.js"></script>
+</body>
+</html>
